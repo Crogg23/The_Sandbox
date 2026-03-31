@@ -5,27 +5,52 @@ sources:
     database: SNOWFLAKE_PUBLIC_DATA_PAID
     schema: PUBLIC_DATA
 
-
     tables:
-      # ── Geography ──
+      # GLUE (geography reference)
       - name: geography_index
+      - name: geography_characteristics
       - name: geography_hierarchy
       - name: geography_relationships
-      - name: geography_characteristics
-      - name: geography_overlaps
 
-      # ── NWS Weather ──
-      - name: nws_weather_zone_index
-      - name: nws_weather_station_index
-      - name: nws_weather_attributes
-      - name: nws_weather_timeseries
-      - name: nws_weather_forecast_events
-      - name: nws_weather_alert_events
-      - name: nws_weather_alert_relationships
+      # LAYER 1: FEMA disasters
+      - name: fema_disaster_declaration_index
+      - name: fema_disaster_declaration_areas_index
+      - name: fema_mission_assignment_index
+      - name: fema_region_index
+      - name: fema_national_flood_insurance_program_claim_index
+      - name: fema_national_flood_insurance_program_policy_index
 
-      # ── Aviation Weather ──
-      - name: awc_metar_timeseries
-      - name: awc_taf_timeseries
-
-      # ── NOAA Weather ──
+      # LAYER 1: Weather
       - name: noaa_weather_metrics_timeseries
+      - name: noaa_weather_metrics_attributes
+      - name: noaa_weather_station_index
+      - name: nws_weather_alert_events
+
+      # LAYER 2: Housing
+      - name: fhfa_house_price_timeseries
+      - name: fhfa_house_price_attributes
+      - name: us_real_estate_timeseries
+      - name: us_real_estate_attributes
+      - name: freddie_mac_housing_timeseries
+      - name: freddie_mac_housing_attributes
+      - name: fhfa_mortgage_performance_timeseries
+      - name: home_mortgage_disclosure_attributes
+      - name: housing_urban_development_timeseries
+
+      # LAYER 3: Migration
+      - name: irs_origin_destination_migration_timeseries
+      - name: irs_migration_by_characteristic_timeseries
+      - name: irs_migration_by_characteristic_attributes
+      - name: usps_address_change_timeseries
+      - name: usps_address_change_attributes
+
+      # LAYER 3: Employment
+      - name: bureau_of_labor_statistics_employment_timeseries
+      - name: bureau_of_labor_statistics_employment_attributes
+      - name: us_department_of_labor_unemployment_insurance_claims_timeseries
+
+      # LAYER 4: Demographics
+      - name: american_community_survey_timeseries
+      - name: american_community_survey_attributes
+      - name: irs_individual_income_timeseries
+      - name: us_economic_census_timeseries
