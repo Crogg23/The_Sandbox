@@ -5,6 +5,7 @@ sources:
     database: SNOWFLAKE_PUBLIC_DATA_PAID
     schema: PUBLIC_DATA
 
+
     tables:
       # ── Geography ──
       - name: geography_index
