@@ -1,0 +1,30 @@
+version: 2
+
+sources:
+  - name: snowflake_public_data
+    database: SNOWFLAKE_PUBLIC_DATA_PAID
+    schema: PUBLIC_DATA
+
+    tables:
+      # ── Geography ──
+      - name: geography_index
+      - name: geography_hierarchy
+      - name: geography_relationships
+      - name: geography_characteristics
+      - name: geography_overlaps
+
+      # ── NWS Weather ──
+      - name: nws_weather_zone_index
+      - name: nws_weather_station_index
+      - name: nws_weather_attributes
+      - name: nws_weather_timeseries
+      - name: nws_weather_forecast_events
+      - name: nws_weather_alert_events
+      - name: nws_weather_alert_relationships
+
+      # ── Aviation Weather ──
+      - name: awc_metar_timeseries
+      - name: awc_taf_timeseries
+
+      # ── NOAA Weather ──
+      - name: noaa_weather_metrics_timeseries
