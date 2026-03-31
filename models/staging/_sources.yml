@@ -11,6 +11,7 @@ sources:
       - name: geography_characteristics
       - name: geography_hierarchy
       - name: geography_relationships
+      - name: geography_overlaps
 
       # LAYER 1: FEMA disasters
       - name: fema_disaster_declaration_index
@@ -20,11 +21,23 @@ sources:
       - name: fema_national_flood_insurance_program_claim_index
       - name: fema_national_flood_insurance_program_policy_index
 
-      # LAYER 1: Weather
+      # LAYER 1: Weather (NOAA)
       - name: noaa_weather_metrics_timeseries
       - name: noaa_weather_metrics_attributes
       - name: noaa_weather_station_index
+
+      # LAYER 1: Weather (NWS)
       - name: nws_weather_alert_events
+      - name: nws_weather_alert_relationships
+      - name: nws_weather_zone_index
+      - name: nws_weather_station_index
+      - name: nws_weather_attributes
+      - name: nws_weather_timeseries
+      - name: nws_weather_forecast_events
+
+      # LAYER 1: Weather (AWC aviation)
+      - name: awc_metar_timeseries
+      - name: awc_taf_timeseries
 
       # LAYER 2: Housing
       - name: fhfa_house_price_timeseries
@@ -54,3 +67,10 @@ sources:
       - name: american_community_survey_attributes
       - name: irs_individual_income_timeseries
       - name: us_economic_census_timeseries
+
+      # STRETCH: Crime, banking, complaints, healthcare, nuclear
+      - name: urban_crime_timeseries
+      - name: fdic_summary_of_deposits_timeseries
+      - name: financial_cfpb_complaint
+      - name: nppes_provider_addresses
+      - name: nrc_reactor_timeseries
