@@ -1,1 +1,1 @@
-select * from {{ source('snowflake_public_data', 'geography_characteristics') }}
+SELECT * FROM {{ source('snowflake_public_data', 'geography_characteristics') }}
