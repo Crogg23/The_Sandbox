@@ -22,7 +22,7 @@ FROM  {{ ref('stg_geography_index') }} as Continent
      inner join {{ ref('stg_geography_relationships') }} as County on 
         State.GEO_ID = County.RELATED_GEO_ID
         and County.level = 'County'
-    inner join {{ ref('stg_geography_relationships') } as CensusTract on 
+    inner join {{ ref('stg_geography_relationships') }} as CensusTract on 
         County.GEO_ID = CensusTract.RELATED_GEO_ID
         and CensusTract.level = 'CensusTract'
 
