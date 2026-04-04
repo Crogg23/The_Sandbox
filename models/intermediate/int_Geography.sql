@@ -1,4 +1,3 @@
---ONE ROW PER CENSUS TRACT
 
 
 SELECT 
@@ -11,7 +10,8 @@ Continent.GEO_NAME as GeoName_Continent,
 Country.Geo_Name as GeoName_Country,
 State.Geo_Name as GeoName_State,
 County.Geo_Name as GeoName_County,
-CensusTract.GEO_NAME as GeoName_CensusTract
+CensusTract.GEO_NAME as GeoName_CensusTract,
+GC.Value
 FROM  {{ ref('stg_geography_index') }} as Continent
     inner join stg_geography_relationships as Country on 
         Continent.GEO_ID = Country.RELATED_GEO_ID
@@ -25,6 +25,7 @@ FROM  {{ ref('stg_geography_index') }} as Continent
     inner join {{ ref('stg_geography_relationships') }} as CensusTract on 
         County.GEO_ID = CensusTract.RELATED_GEO_ID
         and CensusTract.level = 'CensusTract'
-
+    inner join {{ ref('stg_geography_characteristics') }} as GC on
+        County.Geo_id = GC.GEO_ID
 where Continent.level = 'Continent'
 
