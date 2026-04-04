@@ -11,8 +11,8 @@ Country.Geo_Name as GeoName_Country,
 State.Geo_Name as GeoName_State,
 County.Geo_Name as GeoName_County,
 CensusTract.GEO_NAME as GeoName_CensusTract,
-MAX(case when relationship_type = 'coordinates_wkt' then value end) as WKT_Coordinates,
-MAX(case when relationship_type = 'coordinates_geojson' then value end) as JSON_Coordinates
+MAX(case when GC.relationship_type = 'coordinates_wkt' then gc.value end) as WKT_Coordinates,
+MAX(case when GC.relationship_type = 'coordinates_geojson' then gc.value end) as JSON_Coordinates
 
 FROM  {{ ref('stg_geography_index') }} as Continent
     inner join stg_geography_relationships as Country on 
