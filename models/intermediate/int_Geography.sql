@@ -11,6 +11,7 @@ Country.Geo_Name as GeoName_Country,
 State.Geo_Name as GeoName_State,
 County.Geo_Name as GeoName_County,
 CensusTract.GEO_NAME as GeoName_CensusTract,
+GC.RELATIONSHIP_TYPE as wkt_or_json,
 GC.Value
 FROM  {{ ref('stg_geography_index') }} as Continent
     inner join stg_geography_relationships as Country on 
