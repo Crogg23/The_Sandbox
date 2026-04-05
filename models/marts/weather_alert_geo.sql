@@ -1,3 +1,7 @@
+
+{{ config(materialized="table") }}
+
+
 select 
 geo.geo_id_state,
 geo.geo_id_county,
