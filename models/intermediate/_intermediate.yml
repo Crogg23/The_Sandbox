@@ -37,8 +37,9 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('int_geography_county')
-              field: geo_id_county
+              arguments:
+                to: ref('int_geography_county')
+                field: geo_id_county
               config:
                 severity: warn
       - name: event_severity
@@ -48,7 +49,8 @@ models:
         description: Whether this alert is a Parent Alert or Child Alert.
         tests:
           - accepted_values:
-              values: ['Parent Alert', 'Child Alert']
+              arguments:
+                values: ['Parent Alert', 'Child Alert']
       - name: sent_month
         description: Truncated month of sent_timestamp for time-grain aggregation.
         tests:

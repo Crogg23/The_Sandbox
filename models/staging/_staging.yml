@@ -13,7 +13,8 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ['Continent', 'Country', 'State', 'County', 'Census Tract']
+              arguments:
+                values: ['Continent', 'Country', 'State', 'County', 'Census Tract']
 
   - name: stg_geography_relationships
     description: Parent-child linkages between geographic entities.
@@ -53,7 +54,8 @@ models:
         description: Alert severity classification.
         tests:
           - accepted_values:
-              values: ['Minor', 'Moderate', 'Severe', 'Extreme', 'Unknown']
+              arguments:
+                values: ['Minor', 'Moderate', 'Severe', 'Extreme', 'Unknown']
               config:
                 severity: warn
       - name: alert_status
