@@ -1,4 +1,4 @@
-
+{{ config(materialized='table') }}
 
 SELECT 
 Continent.GEO_ID as Geo_ID_Continent, 
@@ -15,7 +15,7 @@ MAX(case when GC.relationship_type = 'coordinates_wkt' then gc.value end) as WKT
 MAX(case when GC.relationship_type = 'coordinates_geojson' then gc.value end) as JSON_Coordinates
 
 FROM  {{ ref('stg_geography_index') }} as Continent
-    inner join stg_geography_relationships as Country on 
+    inner join {{ ref('stg_geography_relationships') }} as Country on 
         Continent.GEO_ID = Country.RELATED_GEO_ID
         and Country.level = 'Country'
     inner join {{ ref('stg_geography_relationships') }} as State on 
