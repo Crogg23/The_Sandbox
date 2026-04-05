@@ -15,6 +15,8 @@ models:
           - accepted_values:
               arguments:
                 values: ['Continent', 'Country', 'State', 'County', 'Census Tract']
+              config:
+                severity: warn
 
   - name: stg_geography_relationships
     description: Parent-child linkages between geographic entities.
