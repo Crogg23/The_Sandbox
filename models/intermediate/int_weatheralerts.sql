@@ -1,3 +1,4 @@
+{{ config(materialized='table') }}
 
 SELECT 
 Weather_Alert_Events.County_GEO_ID,
