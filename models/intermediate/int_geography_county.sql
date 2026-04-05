@@ -1,51 +1,62 @@
 {{ config(materialized='table') }}
 
+with geo_names as (
+    select geo_id, geo_name
+    from {{ ref('stg_geography_index') }}
+),
+
+hierarchy as (
+    select
+        continent.geo_id    as geo_id_continent,
+        country.geo_id      as geo_id_country,
+        state.geo_id        as geo_id_state,
+        county.geo_id       as geo_id_county
+
+    from {{ ref('stg_geography_index') }} as continent
+
+    inner join {{ ref('stg_geography_relationships') }} as country
+        on continent.geo_id = country.related_geo_id
+        and country.level = 'Country'
+
+    inner join {{ ref('stg_geography_relationships') }} as state
+        on country.geo_id = state.related_geo_id
+        and state.level = 'State'
+
+    inner join {{ ref('stg_geography_relationships') }} as county
+        on state.geo_id = county.related_geo_id
+        and county.level = 'County'
+
+    where continent.level = 'Continent'
+)
+
 select
-    continent.geo_id          as geo_id_continent,
-    country_rel.geo_id        as geo_id_country,
-    state_rel.geo_id          as geo_id_state,
-    county_rel.geo_id         as geo_id_county,
-    continent.geo_name        as geoname_continent,
-    country_idx.geo_name      as geoname_country,
-    state_idx.geo_name        as geoname_state,
-    county_idx.geo_name       as geoname_county,
+    h.geo_id_continent,
+    h.geo_id_country,
+    h.geo_id_state,
+    h.geo_id_county,
+    cn.geo_name        as geoname_continent,
+    co.geo_name        as geoname_country,
+    st.geo_name        as geoname_state,
+    ct.geo_name        as geoname_county,
     max(case when gc.relationship_type = 'coordinates_wkt' then gc.value end)     as wkt_coordinates,
     max(case when gc.relationship_type = 'coordinates_geojson' then gc.value end) as json_coordinates
 
-from {{ ref('stg_geography_index') }} as continent
+from hierarchy as h
 
-inner join {{ ref('stg_geography_relationships') }} as country_rel
-    on continent.geo_id = country_rel.related_geo_id
-    and country_rel.level = 'Country'
-
-inner join {{ ref('stg_geography_index') }} as country_idx
-    on country_rel.geo_id = country_idx.geo_id
-
-inner join {{ ref('stg_geography_relationships') }} as state_rel
-    on country_rel.geo_id = state_rel.related_geo_id
-    and state_rel.level = 'State'
-
-inner join {{ ref('stg_geography_index') }} as state_idx
-    on state_rel.geo_id = state_idx.geo_id
-
-inner join {{ ref('stg_geography_relationships') }} as county_rel
-    on state_rel.geo_id = county_rel.related_geo_id
-    and county_rel.level = 'County'
-
-inner join {{ ref('stg_geography_index') }} as county_idx
-    on county_rel.geo_id = county_idx.geo_id
+inner join geo_names as cn on h.geo_id_continent = cn.geo_id
+inner join geo_names as co on h.geo_id_country = co.geo_id
+inner join geo_names as st on h.geo_id_state = st.geo_id
+inner join geo_names as ct on h.geo_id_county = ct.geo_id
 
 inner join {{ ref('stg_geography_characteristics') }} as gc
-    on county_rel.geo_id = gc.geo_id
-
-where continent.level = 'Continent'
+    on h.geo_id_county = gc.geo_id
 
 group by
-    continent.geo_id,
-    country_rel.geo_id,
-    state_rel.geo_id,
-    county_rel.geo_id,
-    continent.geo_name,
-    country_idx.geo_name,
-    state_idx.geo_name,
-    county_idx.geo_name
+    h.geo_id_continent,
+    h.geo_id_country,
+    h.geo_id_state,
+    h.geo_id_county,
+    cn.geo_name,
+    co.geo_name,
+    st.geo_name,
+    ct.geo_name
