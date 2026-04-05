@@ -1,0 +1,55 @@
+version: 2
+
+models:
+  - name: int_geography_county
+    description: >
+      County-level geography dimension joining continent → country → state → county
+      with WKT and GeoJSON coordinates pivoted from characteristics.
+    columns:
+      - name: geo_id_county
+        description: Unique county-level geographic identifier.
+        tests:
+          - unique
+          - not_null
+      - name: geo_id_state
+        tests:
+          - not_null
+      - name: geoname_county
+        tests:
+          - not_null
+      - name: geoname_state
+        tests:
+          - not_null
+      - name: json_coordinates
+        description: GeoJSON polygon coordinates for choropleth mapping.
+
+  - name: int_weatheralerts
+    description: >
+      NWS weather alerts enriched with date dimensions and parent/child
+      hierarchy classification. Filtered to {{ var('min_alert_date', '2020-01-01') }}+.
+    columns:
+      - name: nws_alert_id
+        description: Unique NWS alert identifier.
+        tests:
+          - not_null
+      - name: county_geo_id
+        description: Foreign key to int_geography_county.geo_id_county.
+        tests:
+          - not_null
+          - relationships:
+              to: ref('int_geography_county')
+              field: geo_id_county
+              config:
+                severity: warn
+      - name: event_severity
+        tests:
+          - not_null
+      - name: alert_hierarchy
+        description: Whether this alert is a Parent Alert or Child Alert.
+        tests:
+          - accepted_values:
+              values: ['Parent Alert', 'Child Alert']
+      - name: sent_month
+        description: Truncated month of sent_timestamp for time-grain aggregation.
+        tests:
+          - not_null

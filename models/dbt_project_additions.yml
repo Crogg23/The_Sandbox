@@ -1,0 +1,17 @@
+# ──────────────────────────────────────────────────────────────
+# ADD THESE SECTIONS TO YOUR EXISTING dbt_project.yml
+# ──────────────────────────────────────────────────────────────
+
+# Under your existing config, add vars:
+vars:
+  min_alert_date: '2020-01-01'   # configurable floor for weather alerts
+
+# Under models:, add per-folder materializations:
+models:
+  disaster_impact:               # replace with your project name if different
+    staging:
+      +materialized: view
+    intermediate:
+      +materialized: table
+    marts:
+      +materialized: table

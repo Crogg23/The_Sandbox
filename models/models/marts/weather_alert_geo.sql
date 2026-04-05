@@ -1,31 +1,3 @@
-<<<<<<< HEAD
-
-{{ config(materialized="table") }}
-
-
-select 
-geo.geo_id_state,
-geo.geo_id_county,
-geo.geoname_county,
-geo.geoname_state,
--- removed: geo.geoname_censustract
-geo.wkt_coordinates,
-geo.json_coordinates,
-count(distinct case when event_severity = 'Moderate' then nws_alert_id end) as moderate_events,
-count(distinct case when event_severity = 'Severe' then nws_alert_id end) as severe_events,
-count(distinct case when event_severity = 'Extreme' then nws_alert_id end) as extreme_events
-from {{ ref('int_geography_county') }} as geo 
-    inner join {{ ref('int_weatheralerts') }} as wa on 
-        geo.geo_id_county = wa.county_geo_id
-where alert_status <> 'Test'
-group by 
-geo.geo_id_state,
-geo.geo_id_county,
-geo.geoname_county,
-geo.geoname_state,
-geo.wkt_coordinates,
-geo.json_coordinates
-=======
 {{ config(materialized='table') }}
 
 select
@@ -80,4 +52,3 @@ group by
     wa.sent_year_num,
     wa.sent_month_num,
     wa.sent_month
->>>>>>> 7ab5bbf658f03cd69bfcf12bd011ddda69717bb6

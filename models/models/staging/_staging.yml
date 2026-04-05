@@ -1,0 +1,74 @@
+version: 2
+
+models:
+  - name: stg_geography_index
+    description: Geographic entities with unique identifiers and hierarchy level.
+    columns:
+      - name: geo_id
+        description: Unique geographic identifier (e.g. geoId/06065).
+        tests:
+          - not_null
+      - name: level
+        description: Hierarchy level of the entity.
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Continent', 'Country', 'State', 'County', 'Census Tract']
+
+  - name: stg_geography_relationships
+    description: Parent-child linkages between geographic entities.
+    columns:
+      - name: geo_id
+        tests:
+          - not_null
+      - name: related_geo_id
+        tests:
+          - not_null
+      - name: level
+        tests:
+          - not_null
+
+  - name: stg_geography_characteristics
+    description: Key-value attributes (coordinates, metadata) for geographic entities.
+    columns:
+      - name: geo_id
+        tests:
+          - not_null
+      - name: relationship_type
+        tests:
+          - not_null
+
+  - name: stg_nws_weather_alert_events
+    description: NWS weather alert events with severity, urgency, and timestamps.
+    columns:
+      - name: nws_alert_id
+        description: Unique NWS alert identifier.
+        tests:
+          - not_null
+      - name: county_geo_id
+        description: Geographic identifier linking alert to a county.
+        tests:
+          - not_null
+      - name: event_severity
+        description: Alert severity classification.
+        tests:
+          - accepted_values:
+              values: ['Minor', 'Moderate', 'Severe', 'Extreme', 'Unknown']
+              config:
+                severity: warn
+      - name: alert_status
+        tests:
+          - not_null
+      - name: sent_timestamp
+        tests:
+          - not_null
+
+  - name: stg_nws_weather_alert_relationships
+    description: Parent-child and related-alert linkages.
+    columns:
+      - name: nws_alert_id
+        tests:
+          - not_null
+      - name: relationship_type
+        tests:
+          - not_null
