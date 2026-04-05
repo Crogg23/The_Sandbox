@@ -5,6 +5,7 @@
 name: 'disaster_impact'
 version: '1.0.0'
 config-version: 2
+require-dbt-version: ">=1.7.0"
 
 # This setting configures which "profile" dbt uses for this project.
 profile: 'default'
@@ -40,6 +41,9 @@ vars:
 
 models:
   disaster_impact:
+    +persist_docs:
+      relation: true
+      columns: true
     staging:
       +materialized: view
     intermediate:

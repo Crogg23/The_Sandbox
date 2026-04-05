@@ -41,7 +41,7 @@ from {{ ref('int_geography_county') }} as geo
 inner join {{ ref('int_weatheralerts') }} as wa
     on geo.geo_id_county = wa.county_geo_id
 
-where wa.alert_status <> 'Test'
+where coalesce(wa.alert_status, '') <> 'Test'
 
 group by
     geo.geo_id_state,
