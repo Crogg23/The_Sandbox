@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 {{ config(materialized="table") }}
 
@@ -80,4 +79,3 @@ group by
     wa.sent_year_num,
     wa.sent_month_num,
     wa.sent_month
->>>>>>> 7ab5bbf658f03cd69bfcf12bd011ddda69717bb6
