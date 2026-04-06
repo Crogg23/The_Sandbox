@@ -37,7 +37,8 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 vars:
-  min_alert_date: '2025-01-01'
+  min_alert_date: '2015-01-01'
+  min_timeseries_date: '2010-01-01'
 
 models:
   disaster_impact:
