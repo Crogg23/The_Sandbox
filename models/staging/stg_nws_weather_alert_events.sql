@@ -26,3 +26,4 @@ renamed as (
 )
 
 select * from renamed
+where sent_timestamp >= '{{ var("min_alert_date", "2015-01-01") }}'
