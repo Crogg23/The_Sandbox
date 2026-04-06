@@ -3,9 +3,12 @@ with source as (
 )
 
 select
-    geo_id,
-    variable_name,
-    date,
-    value
+    nws_weather_station_id,
+    Variable,
+    Variable_Name,
+    Timestamp,
+    Value,
+    Unit,
+    Quality_Flag
 from source
-where date >= '{{ var("min_timeseries_date", "2015-01-01") }}'
+where Timestamp >= '{{ var("min_timeseries_date", "2015-01-01") }}'
