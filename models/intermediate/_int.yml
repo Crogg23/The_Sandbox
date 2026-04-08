@@ -1,0 +1,8 @@
+# models/intermediate/schema.yml
+
+version: 2
+
+models:
+  - name: int_geography
+    description: "Joining CensusTract, County, State, Country, and Continent names and Geocodes. One stop shop for baseline geography"
+   
