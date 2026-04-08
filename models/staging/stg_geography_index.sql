@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 SELECT 
 GEO_ID,
 GEO_NAME,
