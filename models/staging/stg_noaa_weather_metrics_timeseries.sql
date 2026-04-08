@@ -1,0 +1,9 @@
+SELECT
+    NOAA_WEATHER_STATION_ID,
+    DATE,
+    DATETIME,
+    VARIABLE,
+    VARIABLE_NAME,
+    VALUE,
+    UNIT
+FROM {{ source('snowflake_public_data', 'NOAA_WEATHER_METRICS_TIMESERIES') }}
