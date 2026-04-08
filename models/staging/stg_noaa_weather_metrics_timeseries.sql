@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 SELECT
     NOAA_WEATHER_STATION_ID,
     DATE,

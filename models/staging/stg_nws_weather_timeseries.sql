@@ -1,3 +1,5 @@
+{{ config(materialized='table') }}
+
 SELECT
     NWS_WEATHER_STATION_ID,
     TIMESTAMP,
