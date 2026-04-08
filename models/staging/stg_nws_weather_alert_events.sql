@@ -19,4 +19,3 @@ SELECT
     EXPIRATION_TIMESTAMP,
     ONSET_TIMESTAMP
 FROM {{ source('snowflake_public_data', 'NWS_WEATHER_ALERT_EVENTS') }}
-where SENT_TIMESTAMP >= '2024-01-01'
