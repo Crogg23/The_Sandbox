@@ -1,0 +1,5 @@
+SELECT
+    NWS_ALERT_ID,
+    RELATED_NWS_ALERT_ID,
+    RELATIONSHIP_TYPE
+FROM {{ source('snowflake_public_data', 'NWS_WEATHER_ALERT_RELATIONSHIPS') }}

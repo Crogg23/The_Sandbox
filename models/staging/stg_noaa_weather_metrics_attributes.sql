@@ -1,0 +1,8 @@
+SELECT
+    VARIABLE,
+    VARIABLE_NAME,
+    FREQUENCY,
+    MEASURE,
+    MEASUREMENT_TYPE,
+    UNIT
+FROM {{ source('snowflake_public_data', 'NOAA_WEATHER_METRICS_ATTRIBUTES') }}

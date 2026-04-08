@@ -1,0 +1,8 @@
+SELECT
+    VARIABLE,
+    VARIABLE_NAME,
+    FREQUENCY,
+    MEASURE,
+    METAR_SKY_COVERAGE,
+    UNIT
+FROM {{ source('snowflake_public_data', 'NWS_WEATHER_ATTRIBUTES') }}

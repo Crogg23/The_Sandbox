@@ -1,0 +1,9 @@
+SELECT
+    NWS_WEATHER_STATION_ID,
+    TIMESTAMP,
+    VARIABLE,
+    VARIABLE_NAME,
+    VALUE,
+    UNIT,
+    QUALITY_FLAG
+FROM {{ source('snowflake_public_data', 'NWS_WEATHER_TIMESERIES') }}
